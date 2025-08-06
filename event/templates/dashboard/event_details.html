@@ -1,0 +1,42 @@
+{% extends "dashboard/main.html" %}
+{% block main %}
+
+{% load static %}
+<div class="eb md:w-1/2 mt-8 mb-8 mx-auto border border-white shadow-lg p-4 shadow-gray-400">
+        <img class="shadow-2xl border border-green-950 w-full" src="{% static "images/Hero-1.webp" %}" alt="">
+        <h1>Name: {{event.name}}</h1>
+        <h1>Description: {{event.description}}</h1>
+        <div class="md:flex justify-between mt-2">
+            <div class="flex items-center gap-1">
+                <img class="w-[30px] h-[30px]"  src="{% static "images/icons8-date-48.png" %}" alt="">
+                <h1 class=" font-semibold">{{event.date}}</h1>
+            </div>
+            <div class="flex items-center gap-1">
+                <img class="w-[30px] h-[30px]" src="{% static "images/icons8-time-40.png" %}" alt="">
+                <h1 class=" font-semibold">{{event.time}}</h1>
+            </div>
+            <div class="flex items-center gap-1">
+                <img class="w-[30px] h-[30px]" src="{% static "images/icons8-location-48.png" %}" alt="">
+                <h1 class=" font-semibold">{{event.location}}</h1>
+            </div>
+        </div>
+        <h1 class="font-bold mt-2">Category: <span class="font-bold text-rose-900">{{event.category}}</span></h1>
+        
+        {% if event.particepant.all %}
+        
+            <div class="mt-4">
+            <h1 class="font-bold underline">All Particepants</h1>
+            <ul class="mt-2">
+            {% for particepant in event.particepant.all %}
+                <li class="font-semibold">{{particepant.name}}</li>
+            {% endfor %}
+            </ul>
+        </div>
+        {% else %}
+        <h1 class="font-bold">No particepant</h1>
+        {% endif %}
+        <a href="{% url "all"  %}?type=back" class="bg-rose-800 block px-2 py-1 text-white font-semibold text-center rounded-md mt-10">Back to Events</a>
+        
+      </div>
+
+{% endblock main %}

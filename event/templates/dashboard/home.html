@@ -1,0 +1,108 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EventMania</title>
+  <link rel="stylesheet" href="{% static "css/output.css" %}">
+</head>
+<body class="bg-gray-50">
+
+  <!-- Header -->
+  <header class="md:flex flex-wrap justify-between mx-auto px-4 py-1 bg-rose-800 items-center">
+    <div class="header-left flex justify-between items-center">
+      <img class="w-[40px]" src="{% static "images/icons8-event-100.png" %}" alt="">
+      <p class="font-bold text-white ml-2">EventMania</p>
+    </div>
+    <div class="header-menu gap-4 md:flex text-white font-bold md:mt-0 mt-2 md:mb-0 mb-4">
+      <a class="md:mr-0 mr-1" href="{% url "Home" %}?type=home">Home</a>
+      <a class="md:mr-0 mr-1" href="{% url "all" %}?type=all-event">Events</a>
+      <a class="md:mr-0 mr-1" href="{% url "category" %}?type=Category">Categories</a>
+      <a href="{% url "dashboard" %}?type=dash">Dashboard</a>
+    </div>
+    
+    <form action="{% url "SearchNameLoc" %}" method="GET">
+      <div class="search md:mt-0 mt-4 w-full md:w-auto flex gap-2">
+      <input class="text-white font-semibold px-2 py-1 outline outline-white bg-transparent w-full md:w-auto" name="key" type="search" placeholder="Event Name or Location">
+      <button type="submit" class="border border-white bg-white text-black px-2 py-1 rounded-md" href="#">Search</button>
+    </div>
+    </form>
+
+  </header>
+
+  <!-- Banner -->
+  <div class="banner shadow-md bg-cover bg-center h-[400px] w-full" style="background-image: url('{% static "images/event-1.jpg" %}');">
+    <div class="flex items-center justify-center h-full bg-black/40">
+      <h1 class="text-white text-3xl font-bold text-center">Welcome to <span class="text-rose-500">EventMania</span></h1>
+    </div>
+  </div>
+
+  <!-- Dashboard -->
+ 
+
+  <!-- Categories -->
+  
+
+  <!-- Upcoming Events -->
+  
+
+  <!-- Past Events -->
+  
+
+  <!-- All Events -->
+  <div class="all-events mb-10 w-full max-w-[1160px] mx-auto px-4">
+    <h1 class="text-center text-[30px] font-semibold mt-12 mb-6">All Events</h1>
+    <div class="md:grid md:grid-cols-3 gap-4">
+      {% if events %}
+      
+      {% for event in events %}
+        <div class="eb border border-white shadow-lg p-4 shadow-gray-400 mt-4">
+        <img class="shadow-2xl border border-green-950 w-full" src="{% static "images/Hero-1.webp" %}" alt="">
+        <h1>Name: {{event.name}}</h1>
+        <div class="flex justify-between mt-2">
+            <div class="flex items-center gap-1">
+                <img class="w-[30px] h-[30px]"  src="{% static "images/icons8-date-48.png" %}" alt="">
+                <h1 class=" font-semibold">{{event.date}}</h1>
+            </div>
+            <div class="flex items-center gap-1">
+                <img class="w-[30px] h-[30px]" src="{% static "images/icons8-time-40.png" %}" alt="">
+                <h1 class=" font-semibold">{{event.time}}</h1>
+            </div>
+        </div>
+        
+        <a href="{% url "Details" event.id %}" class="bg-rose-800 block px-2 py-1 text-white font-semibold text-center rounded-md mt-10">Details</a>
+        
+      </div>
+      {% endfor %}
+      {% else %}
+      <h1 class="text-center text-gray-500 text-[30px] font-semibold mt-12 mb-6 md:col-span-3">No Events to Show!!</h1>
+
+      {% endif %}
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="bg-rose-800 text-white py-8 text-center">
+    <div class="flex justify-center items-center">
+      <img class="w-[80px]" src="{% static "images/icons8-event-100.png" %}" alt="">
+      <p class="font-bold text-[20px] ml-2">EventMania</p>
+    </div>
+    <div class="information">
+      <h1 class="font-semibold text-[22px] underline">Contacts</h1>
+      <div class="number flex justify-center gap-1">
+        <img class="w-[20px] h-auto" src="{% static "images/icons8-call-48.png" %}" alt="">
+        <h1 class="mt-1">0123457890</h1>
+      </div>
+      <div class="number flex justify-center gap-1">
+        <img class="w-[20px] h-auto" src="{% static "images/icons8-email-48.png" %}" alt="">
+        <h1 class="mt-1 underline"><a href="#">eventmania2025@gmail.com</a></h1>
+      </div>
+    </div>
+    <div class="copyright mt-4">
+      <h1 class="text-sm">© 2025 EventMania | All rights reserved</h1>
+    </div>
+  </footer>
+
+</body>
+</html>

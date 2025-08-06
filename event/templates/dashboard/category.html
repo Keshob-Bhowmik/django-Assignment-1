@@ -1,0 +1,30 @@
+{% extends "dashboard/main.html" %}
+{% block title %}Categories{% endblock title %}
+{% block main %}
+{% load static %}
+  <div class="catagory w-full max-w-[1160px] mx-auto px-4  mb-28">
+    <h1 class="text-center text-[30px] font-semibold mt-12 mb-6">Categories</h1>
+    <div class="flex justify-center">
+      <div class="categories-box grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+     
+        
+        
+      
+        
+          {% for ct in categories %}
+            
+              <a href="{% url "categories_events" ct.id %}">
+                <div class="cb w-full sm:w-[250px] h-[80px] rounded-md flex justify-center items-center bg-rose-800 cursor-pointer hover:bg-rose-900">
+          <h1 class="text-white font-bold text-[20px]">{{ct.name}}</h1>
+        </div>
+              </a>
+            
+          {% endfor %}
+        
+        
+
+      </div>
+    </div>
+  </div>
+
+{% endblock main %}

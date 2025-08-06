@@ -1,0 +1,83 @@
+{% extends "dashboard/main.html" %}
+{% block title %}All Events{% endblock title %}
+{% block main %}
+{% load static %}
+
+<div class="Dashboard w-full max-w-[1160px] mx-auto px-4 mb-28">
+    <h1 class="font-bold text-[20px] text-center mt-10 mb-7">Search Events by Date</h1>
+  {% if type == "date-no-events" %}
+  <div class="text-red-600 font-semibold text-center">Sorry, no events found.</div>
+  {% elif type == "wrong-date" %}
+  <div class="text-red-600 font-semibold text-center">Please Enter Valid Date Range.</div>
+  {% elif type == "empty-date" %}
+  <div class="text-red-600 font-semibold text-center">Please fill both of the date field.</div>
+  {% elif type == "date" %}
+  <div class="text-green-600 font-semibold text-center">Please check the events below.</div>
+  {% endif %}
+  <form action="{% url "all" %}" method="GET">
+  <div class="flex flex-col justify-center items-center space-y-2">
+    <div>
+      
+
+
+      <label for="start_date" class="font-semibold">Start Date:</label>
+      <input class="border px-3 py-1 w-[150px] ml-[10px] text-gray-500" type="date" id="start_date" name="start_date">
+    </div>
+    <div>
+      <label for="end_date" class="font-semibold">End Date:</label>
+      <input class="border px-3 py-1 w-[150px] ml-[18px] text-gray-500" type="date" id="end_date" name="end_date">
+    </div>
+    <div class="text-center">
+      <button type="submit" class="bg-rose-800 mt-5 text-white px-4 py-1 rounded">Submit</button>
+    </div>
+  </div>
+</form>
+
+
+    <h1 id="reuslts" class="text-center text-rose-700 underline text-[30px] font-semibold mt-12 mb-6">Organizers Bar</h1>
+    <div  class="flex justify-center">
+      <div class="categories-box grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        <div class="cb w-full sm:w-[250px] rounded-md h-[80px] flex flex-col justify-center items-center bg-rose-800 cursor-pointer hover:bg-rose-900">
+          <h1 class="text-white font-bold text-[20px]">Total Particepants</h1>
+          <h3 class="text-white font-bold text-[20px]">{{counts.total_particepant}}</h3>
+        </div>
+        <!--upcoming-->
+        <a href="{% url "all" %}?type=upcoming#reuslts">
+          <div class="cb w-full sm:w-[250px] rounded-md h-[80px] flex flex-col justify-center items-center bg-rose-800 cursor-pointer hover:bg-rose-900">
+          <h1 class="text-white font-bold text-[20px]">Upcoming Events</h1>
+          <h3 class="text-white font-bold text-[20px]">{{counts.upcoming_events}}</h3>
+        </div>
+        </a>
+        
+
+        <!--past-->
+        <a href="{% url "all" %}?type=past#reuslts">
+          <div class="cb w-full sm:w-[250px] rounded-md h-[80px] flex flex-col justify-center items-center bg-rose-800 cursor-pointer hover:bg-rose-900">
+          <h1 class="text-white font-bold text-[20px]">Past Events</h1>
+          <h3 class="text-white font-bold text-[20px]">{{counts.past_events}}</h3>
+        </div>
+        </a>
+
+
+
+        <a href="{% url "all" %}?type=total-event#reuslts">
+          <div class="cb w-full sm:w-[250px] rounded-md h-[80px] flex flex-col justify-center items-center bg-rose-800 cursor-pointer hover:bg-rose-900">
+          <h1 class="text-white font-bold text-[20px]">All Events</h1>
+          <h3 class="text-white font-bold text-[20px]">{{counts.total_events}}</h3>
+        </div>
+        </a>
+        
+        
+        
+        
+      </div>
+    </div>
+  </div>
+
+  {% block all-events %}
+  
+  {% endblock all-events %}
+
+
+{% endblock main %}
+

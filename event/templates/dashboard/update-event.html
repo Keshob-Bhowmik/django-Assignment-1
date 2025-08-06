@@ -1,0 +1,78 @@
+{% extends "dashboard/dashboard.html" %}
+{% block dashboard %}
+{% load static %}
+
+
+
+<form id="updateevent"  action="#updateevent" method="GET" >
+    <h1  class="font-semibold text-center mb-7">Search the Event by name or location</h1>
+
+    {% if event_ache == "no" %}
+<p id="updateevent" class="text-center font-semibold text-red-600 mb-4">No events found.</p>
+{% elif event_ache == "empty_search" %}
+<p id="updateevent"  class="text-center font-semibold text-red-600 mb-4">Please enter something in the searchbox.</p>
+{% endif %}
+    
+    <div id="updateevent" class="flex justify-center items-center mb-20 px-4">
+        <div class="search md:mt-0 mt-4 w-full md:w-auto flex gap-2">
+            <input class="text-black font-semibold px-2 py-1 outline-none border
+            border-rose-700 bg-transparent w-full md:w-auto" name="key" type="search" placeholder="Event Name or Location">
+            <button type="submit" class="border border-white bg-rose-800 text-white font-semibold px-2 py-1 rounded-md">Search</button>
+        </div>
+    </div>
+</form>
+
+
+{% if messages %}
+  <div id="updateevent">
+    {% for message in messages %}
+      <div class="text-center md:w-[500px] md:mx-auto bg-green-500 text-white font-semibold border border-green-300 p-3 rounded mb-4">
+        <h1 >{{message}}</h1>
+      </div>
+    {% endfor %}
+  </div>
+{% endif %}
+
+{% if events %}
+<div id="updateevent" class="event-box grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 px-10">
+    {% for event in events %}
+    <div class="eb border border-white shadow-lg p-4 shadow-gray-400">
+        <img class="shadow-2xl border border-green-950 w-full" src="{% static "images/Hero-1.webp" %}" alt="">
+        <h1>Name: {{ event.name }}</h1>
+        <div class="flex justify-between mt-2">
+            <div class="flex items-center gap-1">
+                <img class="w-[30px] h-[30px]" src="{% static "images/icons8-date-48.png" %}" alt="">
+                <h1 class="font-semibold">{{ event.date }}</h1>
+            </div>
+            <div class="flex items-center gap-1">
+                <img class="w-[30px] h-[30px]" src="{% static "images/icons8-time-40.png" %}" alt="">
+                <h1 class="font-semibold">{{ event.time }}</h1>
+            </div>
+        </div>
+<form method="GET" action="{% url 'update_event' %}#updateevent">
+    <input type="hidden" name="edit_id" value="{{ event.id }}">
+    <button type="submit" class="bg-rose-800 w-full text-white font-semibold px-2 py-1 rounded-md mt-10">Edit</button>
+</form>
+
+
+    </div>
+    {% endfor %}
+</div>
+{% endif %}
+
+{% if edit_id_ache == "yes" %}
+<h1 id="updateevent" class="text-center text-rose-800 font-bold text-[25px] mb-3">Update Event</h1>
+    <div class="border md:w-[500px] mx-auto p-4 mb-4 shadow-lg">
+        <form id="updateevent"  action="#updateevent" class="space-y-4" method="POST">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="hidden" name="event_id" value="{{ edit_event.id }}">
+    <button type="submit" class="bg-rose-700 mt-7 text-white font-bold px-4 py-1 rounded-md">
+        Save Changes
+    </button>
+</form>
+    </div>
+{% endif %}
+
+
+{% endblock dashboard %}

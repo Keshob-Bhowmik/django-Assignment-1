@@ -1,0 +1,57 @@
+  {% extends "dashboard/all-events.html" %}
+  {% block all-events %}
+  {% load static %}
+
+  <div id="reuslts" class="all-events mb-10 w-full max-w-[1160px] mx-auto px-4">
+    {% if events %}
+    {% if type == "past" %}
+        <h1 class="text-center text-[30px] font-semibold mt-12 mb-6">Past Events</h1>
+    {% elif type == "upcoming" %}
+        <h1 class="text-center text-[30px] font-semibold mt-12 mb-6">UpComing Events</h1>
+    {% elif type == "total-event" %}
+        <h1 class="text-center text-[30px] font-semibold mt-12 mb-6">All Events</h1>
+    {% elif type == "date" %}
+        <h1 class="text-center text-[30px] font-semibold mt-12 mb-6">Events Between {{start_date}} to {{end_date}}</h1>
+    {% else %}
+        <h1 class="text-center text-[30px] font-semibold mt-12 mb-6">Today Events</h1>
+    {% endif %}
+    
+    <div class="event-box grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      {% for event in events %}
+        <div class="eb border border-white shadow-lg p-4 shadow-gray-400">
+        <img class="shadow-2xl border border-green-950 w-full" src="{% static "images/Hero-1.webp" %}" alt="">
+        <h1>Name: {{event.name}}</h1>
+        <div class="flex justify-between mt-2">
+            <div class="flex items-center gap-1">
+                <img class="w-[30px] h-[30px]"  src="{% static "images/icons8-date-48.png" %}" alt="">
+                <h1 class=" font-semibold">{{event.date}}</h1>
+            </div>
+            <div class="flex items-center gap-1">
+                <img class="w-[30px] h-[30px]" src="{% static "images/icons8-time-40.png" %}" alt="">
+                <h1 class=" font-semibold">{{event.time}}</h1>
+            </div>
+        </div>
+        
+        <a href="{% url "Details" event.id %}" class="bg-rose-800 block px-2 py-1 text-white font-semibold text-center rounded-md mt-10">Details</a>
+        
+      </div>
+      {% endfor %}
+
+      {% else %}
+
+      {% if type == "past" %}
+        <h1 class="text-center text-[30px] font-semibold mt-12 mb-6">No Past Events to show</h1>
+    {% elif type == "upcoming" %}
+        <h1 class="text-center text-[30px] font-semibold mt-12 mb-6">No UpComing Events to show</h1>
+    {% elif type == "total-event" %}
+        <h1 class="text-center text-[30px] font-semibold mt-12 mb-6">No Events to show</h1>
+    
+    {% else %}
+        <h1 class="text-center text-[30px] font-semibold mt-12 mb-6">There is no event for today</h1>
+    {% endif %}
+
+      {% endif %}
+       
+    </div>
+  </div>
+  {% endblock all-events %}
