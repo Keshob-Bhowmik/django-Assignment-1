@@ -26,8 +26,7 @@ class EventModelForm(forms.ModelForm):
         }
 
     def __init__(self, *args, **kwargs):
-        super(EventModelForm, self).__init__(*args, **kwargs)
-        self.fields['category'].empty_label = None
+        super().__init__(*args, **kwargs)
 
 
 class CreateCategoryModelForm(forms.ModelForm):
@@ -44,7 +43,7 @@ class CreateCategoryModelForm(forms.ModelForm):
         }
 
     def __init__(self, *args, **kwargs):
-        super(CreateCategoryModelForm, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
 
 
 class AddParticepantModelform(forms.ModelForm):
@@ -64,4 +63,4 @@ class AddParticepantModelform(forms.ModelForm):
         }
 
     def __init__(self, *args, **kwargs):
-        super(AddParticepantModelform, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)

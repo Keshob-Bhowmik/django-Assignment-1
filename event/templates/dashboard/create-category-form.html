@@ -1,7 +1,7 @@
 {% extends "dashboard/dashboard.html" %}
 
 {% block dashboard %}
-{% load crispy_forms_tags %}
+
 {% if messages %}
   <div>
     {% for message in messages %}
@@ -18,7 +18,7 @@
     <div class="border md:w-[500px] mx-auto p-4 mb-4 shadow-lg">
         <form  action="#addcat" class="space-y-4" method="POST">
     {% csrf_token %}
-    <!-- {{ form|crispy }} -->
+    
     {{ form.as_p }}
     <button type="submit" class="bg-rose-700 mt-7 text-white font-bold px-4 py-1 rounded-md">
         Submit

@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
-from datetime import date
+from django.utils.timezone import now
 from event.forms import EventModelForm, CreateCategoryModelForm, AddParticepantModelform
 from event.models import Event, Participant, Category
 from django.db.models import Q, Count
@@ -27,6 +27,7 @@ def Past_events(request):
 
 def details(request, id):
     event = Event.objects.prefetch_related('particepant').get(id=id)
+    
     context = {
         'event' : event
     }
@@ -40,7 +41,7 @@ def All_events(request):
     
 
     print(type)
-    today = date.today()
+    today = now().date()
     counts = Event.objects.aggregate(
         total_events = Count('id', distinct=True),
         upcoming_events = Count('id', filter=Q(date__gt=today), distinct=True),
@@ -119,15 +120,17 @@ def categories_events(request, id):
     return render(request, 'dashboard/category_events.html', context)
 
 def create_event(request):
-    form = EventModelForm()
     if request.method == 'POST':
         form = EventModelForm(request.POST)
         if form.is_valid():
             form.save()
             messages.success(request, "Event Created Successfully")
             return redirect('create-event')
+    else:
+        form = EventModelForm()
     context = {
-        'form' : form
+        'form' : form,
+
     }
     return render(request, 'dashboard/create-event-form.html', context)
 

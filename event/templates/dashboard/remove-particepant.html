@@ -1,6 +1,6 @@
 {% extends "dashboard/dashboard.html" %}
 {% block dashboard %}
-{% load crispy_forms_tags %}
+
 {% load static %}
 
 
@@ -42,7 +42,7 @@
         <h1>Email: {{particepant.email}}</h1>
   <form method="POST" action="{% url 'removeparticepant' %}#removeman">
     {% csrf_token %}
-    <!-- {{ form|crispy }} -->
+    
     <input type="hidden" name="particepant_id" value="{{ particepant.id }}">
     <button type="submit" class="bg-rose-800 w-full text-white font-semibold px-2 py-1 rounded-md mt-10">Delete</button>
 </form>
