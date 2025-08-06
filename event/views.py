@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
-from django.utils.timezone import now
+from django.utils import timezone
 from event.forms import EventModelForm, CreateCategoryModelForm, AddParticepantModelform
 from event.models import Event, Participant, Category
 from django.db.models import Q, Count
@@ -41,7 +41,7 @@ def All_events(request):
     
 
     print(type)
-    today = now().date()
+    today = timezone.now().date()
     counts = Event.objects.aggregate(
         total_events = Count('id', distinct=True),
         upcoming_events = Count('id', filter=Q(date__gt=today), distinct=True),
