@@ -1,6 +1,8 @@
 {% extends "dashboard/dashboard.html" %}
 {% block dashboard %}
+{% load crispy_forms_tags %}
 {% load static %}
+
 
 
 
@@ -55,6 +57,7 @@
     <div class="border md:w-[500px] mx-auto p-4 mb-4 shadow-lg">
 <form id="updatcat"  action="#updatcat" class="space-y-4" method="POST">
     {% csrf_token %}
+    <!-- {{ form|crispy }} -->
     {{ form.as_p }}
     <input type="hidden" name="category_id" value="{{ edit_category.id }}">
     <button type="submit" class="bg-rose-700 mt-7 text-white font-bold px-4 py-1 rounded-md">

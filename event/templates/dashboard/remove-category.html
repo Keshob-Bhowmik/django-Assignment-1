@@ -1,5 +1,6 @@
 {% extends "dashboard/dashboard.html" %}
 {% block dashboard %}
+{% load crispy_forms_tags %}
 {% load static %}
 
 
@@ -40,6 +41,7 @@
         <h1>Name: {{ category.name }}</h1>
   <form method="POST" action="{% url 'removecategory' %}#removecat">
     {% csrf_token %}
+    <!-- {{ form|crispy }} -->
     <input type="hidden" name="category_id" value="{{ category.id }}">
     <button type="submit" class="bg-rose-800 w-full text-white font-semibold px-2 py-1 rounded-md mt-10">Delete</button>
 </form>
