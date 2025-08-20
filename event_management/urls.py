@@ -21,5 +21,6 @@ from event.views import Home
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('event/', include('event.urls')),
-    path('', Home, name='Home')
+    path('', Home, name='Home'),
+    path('users/', include('users.urls'))
 ]+ debug_toolbar_urls()

@@ -1,6 +1,9 @@
 from django.contrib import admin
 from django.urls import path
 from event.views import Dashboard, Home, Past_events, All_events, Categories, create_event, create_category, addparticepant, details, searchBynameLocation, categories_events, remove_event, remove_particepant, update_event, update_particepant, remove_category, update_category
+
+
+
 urlpatterns = [
     path('', Home, name='Home'),
     path('home/', Home, name='Home'),

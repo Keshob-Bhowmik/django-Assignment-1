@@ -1,5 +1,53 @@
 from django import forms
 from event.models import Event, Participant, Category
+
+class StyledForMixin:
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.applyed_style_widgets()
+    default_classes ="w-full  border-2"
+
+    def applyed_style_widgets(self):
+        for field_name, field in self.fields.items():
+            if isinstance(field.widget, forms.TextInput):
+                field.widget.attrs.update({
+                    'class' : self.default_classes,
+                    'placeholder' : f"enter {field.label.lower()}"
+                })
+            elif isinstance(field.widget, forms.Textarea):
+                field.widget.attrs.update({
+                    'class' : self.default_classes,
+                    'placeholder' : f"enter {field.label.lower()}"
+                })
+            elif isinstance(field.widget, forms.CheckboxSelectMultiple):
+                field.widget.attrs.update({
+                    'class' : "border-blue-500  border-2 bg-blue-100",
+                    'placeholder' : f"enter {field.label.lower()}"
+                })
+            elif isinstance(field.widget, forms.SelectDateWidget):
+                field.widget.attrs.update({
+                    'class' : "border-blue-500  border-2 bg-blue-100",
+                    'placeholder' : f"enter {field.label.lower()}"
+                })
+            elif isinstance(field.widget, forms.EmailInput):
+                field.widget.attrs.update({
+                    'class' : "border-2",
+                    'placeholder' : f"enter {field.label.lower()}"
+                })
+            elif isinstance(field.widget, forms.Select):
+                field.widget.attrs.update({
+                    'class' : "border-2 w-full",
+                    
+                })
+            elif isinstance(field.widget, forms.PasswordInput):
+                placeholder_text = "Enter your password"
+                if field_name.lower() == "confirm_password":
+                    placeholder_text = "Retype your password"
+                field.widget.attrs.update({
+                    'class': "border-2 w-full",
+                    'placeholder': placeholder_text
+                })
+
 class EventModelForm(forms.ModelForm):
     class Meta:
         model = Event

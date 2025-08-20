@@ -5,12 +5,14 @@ from event.forms import EventModelForm, CreateCategoryModelForm, AddParticepantM
 from event.models import Event, Participant, Category
 from django.db.models import Q, Count
 from django.contrib import messages
-
+from django.contrib.auth.decorators import login_required, user_passes_test
+from django.contrib.auth.models import User, Group
+from django.db.models import Prefetch
 # Create your views here.
+@login_required
 def Dashboard(request):
     type=request.GET.get('type')
-    return render(request, 'dashboard/dashboard.html', {'type':type})
-
+    return render(request, 'admin/admin_dashboard.html', {'type':type})
 
 
 
@@ -20,11 +22,11 @@ def Home(request):
         'events' : events
     }
     return render(request, 'dashboard/home.html', context)
-
+@login_required
 def Past_events(request):
     return render(request, 'dashboard/past-events.html')
 
-
+@login_required
 def details(request, id):
     event = Event.objects.prefetch_related('particepant').get(id=id)
     
@@ -32,6 +34,8 @@ def details(request, id):
         'event' : event
     }
     return render(request, 'dashboard/event_details.html', context)
+
+
 def All_events(request): 
     type = request.GET.get('type')
     start_date = request.GET.get('start_date')
@@ -83,6 +87,7 @@ def All_events(request):
     return render(request, 'dashboard/events.html', context)
 
 
+@login_required
 def searchBynameLocation(request):
     search_key = request.GET.get('key')
     print(search_key)
@@ -101,7 +106,7 @@ def searchBynameLocation(request):
 
 
 
-
+@login_required
 def Categories(request):
     type= request.GET.get('type')
     categories = Category.objects.all()
@@ -111,6 +116,7 @@ def Categories(request):
     }
     return render(request, 'dashboard/category.html',context)
 
+@login_required
 def categories_events(request, id):
 
     events = Event.objects.filter(category_id=id).select_related('category')
@@ -119,6 +125,8 @@ def categories_events(request, id):
     }
     return render(request, 'dashboard/category_events.html', context)
 
+
+@login_required
 def create_event(request):
     if request.method == 'POST':
         form = EventModelForm(request.POST)
@@ -134,6 +142,8 @@ def create_event(request):
     }
     return render(request, 'dashboard/create-event-form.html', context)
 
+
+@login_required
 def remove_event(request):
     if request.method == "POST":
         event_id = request.POST.get('event_id')
@@ -167,6 +177,8 @@ def remove_event(request):
     return render(request, 'dashboard/remove-event.html', context)
 
 
+
+@login_required
 def update_event(request):
     event = None
     form = None
@@ -217,6 +229,8 @@ def update_event(request):
 
 
 
+
+@login_required
 def remove_particepant(request):
 
     if request.method == "POST":
@@ -246,6 +260,9 @@ def remove_particepant(request):
     }
     return render(request, 'dashboard/remove-particepant.html', context)
 
+
+
+@login_required
 def update_particepant(request):
     particepant = None
     form = None
@@ -288,6 +305,9 @@ def update_particepant(request):
     return render(request, 'dashboard/update-particepant.html', context)
 
 
+
+
+@login_required
 def create_category(request):
     form = CreateCategoryModelForm()
     if request.method == 'POST':
@@ -302,6 +322,10 @@ def create_category(request):
     }
     return render(request, 'dashboard/create-category-form.html', context)
 
+
+
+
+@login_required
 def remove_category(request):
     if request.method == "POST":
         category_id = request.POST.get('category_id')
@@ -330,6 +354,9 @@ def remove_category(request):
     }
     return render(request, 'dashboard/remove-category.html', context)
 
+
+
+@login_required
 def update_category(request):
     category = None
     form = None
@@ -371,6 +398,10 @@ def update_category(request):
     }
     return render(request, 'dashboard/update-category.html', context)
 
+
+
+
+@login_required
 def addparticepant(request):
     form = AddParticepantModelform()
     if request.method == 'POST':
@@ -384,3 +415,6 @@ def addparticepant(request):
         'form' : form
     }
     return render(request, 'dashboard/add-particepant.html', context)
+
+
+
