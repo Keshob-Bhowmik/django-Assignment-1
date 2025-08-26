@@ -7,7 +7,11 @@
     <div class="md:w-[1160px] mx-auto md:px-0 px-4 ">
         <div class="event-box md:grid md:grid-cols-3 gap-6 space-y-4 md:space-x-6">
         <div class="eb  border border-white shadow-lg p-4  shadow-gray-400 ">
-            <img class="shadow-2xl border border-green-950" src="Hero-1.webp" alt="">
+        {% if event.asset %}
+            <img class="w-full h-[300px] shadow-2xl" src="{{ event.asset.url }}" />
+        {% else %}
+            <img class="w-full h-[300px] shadow-2xl" src="/media/events_asset/default.jpg" />
+        {% endif %}
             <h1>Name: xyz</h1>
             <h1>Description: Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloribus id nesciunt aperiam saepe culpa. Animi eius, aliquam nesciunt voluptatum nihil quia facilis a laudantium placeat sed soluta aut quasi eos.
             </h1>

@@ -1,6 +1,6 @@
-{% extends "dashboard/dashboard.html" %}
+{% extends "organizer/organizer_dashboard.html" %}
 
-{% block dashboard %}
+{% block org_dashboard %}
 
 {% if messages %}
   <div>
@@ -14,9 +14,9 @@
 
 
 
-<h1 id="addevent" class="text-center text-rose-800 font-bold text-[25px] mb-3">Add Event</h1>
+<h1 id="orgaddevent" class="text-center text-rose-800 font-bold text-[25px] mb-3">Add Event</h1>
     <div class="border md:w-[500px] mx-auto p-4 mb-4 shadow-lg">
-        <form  action="#addevent" class="space-y-4" method="POST" enctype = 'multipart/form-data'>
+        <form  action="#orgaddevent" class="space-y-4" method="POST" enctype = 'multipart/form-data'>
     {% csrf_token %}
     
     {{ form.as_p }}
@@ -26,5 +26,5 @@
 </form>
     </div>
 
-    {% endblock dashboard %}
+    {% endblock org_dashboard %}
 

@@ -25,14 +25,17 @@ def sign_up(request):
     return render(request, 'registration/sign_up.html', {'form':form})
 
 def sign_in(request):
-    form = LoginForm()
     if request.method == "POST":
-        form = LoginForm(data=request.POST)
+        form = LoginForm(request, data=request.POST)
         if form.is_valid():
             user = form.get_user()
-            login(request,user)
+            login(request, user)
             return redirect('Home')
-    return render(request, 'registration/sign_in.html', {'form' : form})
+    else:
+        form = LoginForm(request) 
+
+    return render(request, 'registration/sign_in.html', {'form': form})
+
 
 @login_required
 def sign_out(request):

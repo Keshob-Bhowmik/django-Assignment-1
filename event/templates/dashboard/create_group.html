@@ -1,0 +1,35 @@
+{% extends "dashboard/main.html" %}
+{% block main %}
+    <div class="mt-10 mb-28 w-1/2 mx-auto">
+        {% if messages %}
+            <ul>
+                {% for message in messages %}
+                    <li class="bg-green-500 text-white font-semibold">{{message}}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+        <form action="" method = 'POST'>
+            {% csrf_token %}
+            <button type='submit' id="selectAllBtn" class="bg-rose-800 px-2 py-1 text-white font-semibold mt-2 rounded-md">Select All</button>
+            {{form}}
+            <button type='submit' class="bg-rose-800 px-2 py-1 text-white font-semibold mt-2 rounded-md">Create Group</button>
+        </form>
+    </div>
+
+    <script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const selectAllBtn = document.getElementById("selectAllBtn");
+        let allSelected = false;
+
+        if (selectAllBtn) {
+            selectAllBtn.addEventListener("click", function () {
+                const checkboxes = document.querySelectorAll("input[type='checkbox']");
+                allSelected = !allSelected;
+                checkboxes.forEach(cb => cb.checked = allSelected);
+                selectAllBtn.textContent = allSelected ? "Unselect All" : "Select All";
+            });
+        }
+    });
+</script>
+
+{% endblock main %}

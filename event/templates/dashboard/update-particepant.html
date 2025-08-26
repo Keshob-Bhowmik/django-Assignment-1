@@ -3,69 +3,82 @@
 
 {% load static %}
 
-
-
-<form id="updatman"  action="#updatman" method="GET" >
-    <h1  class="font-semibold text-center mb-7">Search by name</h1>
+<!-- Search Form -->
+<form id="updatman" action="#updatman" method="GET" class="max-w-xl mx-auto mt-10">
+    <h1 class="text-center font-semibold text-xl mb-6">Search Participants by Name</h1>
 
     {% if particepant_ache == "no" %}
-<p id="updatman" class="text-center font-semibold text-red-600 mb-4">No events found.</p>
-{% elif particepant_ache == "empty_search" %}
-<p id="updatman"  class="text-center font-semibold text-red-600 mb-4">Please enter something in the searchbox.</p>
-{% endif %}
-    
-    <div id="updatman" class="flex justify-center items-center mb-20 px-4">
-        <div class="search md:mt-0 mt-4 w-full md:w-auto flex gap-2">
-            <input class="text-black font-semibold px-2 py-1 outline-none border
-            border-rose-700 bg-transparent w-full md:w-auto" name="key" type="search" placeholder="name">
-            <button type="submit" class="border border-white bg-rose-800 text-white font-semibold px-2 py-1 rounded-md">Search</button>
-        </div>
+        <p class="text-center font-semibold text-red-600 mb-4">No participants found.</p>
+    {% elif particepant_ache == "empty_search" %}
+        <p class="text-center font-semibold text-red-600 mb-4">Please enter something in the search box.</p>
+    {% endif %}
+
+    <div class="flex gap-2 justify-center items-center mb-10 px-4">
+        <input 
+            class="w-full md:w-2/3 text-black font-semibold px-3 py-2 border border-rose-700 rounded-md outline-none"
+            name="key" type="search" placeholder="Enter participant username">
+        <button type="submit" class="bg-rose-800 text-white font-semibold px-4 py-2 rounded-md">Search</button>
     </div>
 </form>
 
-
+<!-- Messages -->
 {% if messages %}
-  <div id="updateevent">
-    {% for message in messages %}
-      <div class="text-center md:w-[500px] md:mx-auto bg-green-500 text-white font-semibold border border-green-300 p-3 rounded mb-4">
-        <h1 >{{message}}</h1>
-      </div>
-    {% endfor %}
-  </div>
+    <div class="max-w-xl mx-auto mb-6">
+        {% for message in messages %}
+            <div class="bg-green-500 text-white font-semibold border border-green-300 p-3 rounded mb-4 text-center">
+                {{ message }}
+            </div>
+        {% endfor %}
+    </div>
 {% endif %}
 
+<!-- Participants Grid -->
 {% if particepants %}
-<div id="updatman" class="event-box grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 px-10">
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 px-4 md:px-10 mb-12">
     {% for particepant in particepants %}
-    <div class="eb border border-white shadow-lg p-4 shadow-gray-400">
-        <img class="shadow-2xl border border-green-950 w-full" src="{% static "images/Hero-1.webp" %}" alt="">
-        <h1>Name: {{ particepant.name }}</h1>
-        <h1>Email: {{ particepant.email }}</h1>
-<form method="GET" action="{% url 'updateparticepant' %}#updatman">
-    <input type="hidden" name="edit_id" value="{{ particepant.id }}">
-    <button type="submit" class="bg-rose-800 w-full text-white font-semibold px-2 py-1 rounded-md mt-10">Edit</button>
-</form>
-
-
+    <div class="border border-gray-200 shadow-lg rounded-lg p-4 flex flex-col items-center">
+        {% if event.asset %}
+            <img class="w-full h-[300px] shadow-2xl" src="{{ event.asset.url }}" />
+        {% else %}
+            <img class="w-full h-[300px] shadow-2xl" src="/media/events_asset/default.jpg" />
+        {% endif %}
+        <h2 class="font-semibold text-lg">Username: {{ particepant.username }}</h2>
+        <p class="text-gray-700">Email: {{ particepant.email }}</p>
+        <form method="GET" action="{% url 'updateparticepant' %}#updatman" class="w-full mt-4">
+            <input type="hidden" name="edit_id" value="{{ particepant.id }}">
+            <button type="submit" class="bg-rose-800 w-full text-white font-semibold px-2 py-1 rounded-md">Edit</button>
+        </form>
     </div>
     {% endfor %}
 </div>
 {% endif %}
 
+<!-- Edit Section -->
 {% if edit_id_ache == "yes" %}
-<h1 id="updateevent" class="text-center text-rose-800 font-bold text-[25px] mb-3">Update Particepant</h1>
-    <div class="border md:w-[500px] mx-auto p-4 mb-4 shadow-lg">
-<form id="updatman"  action="#updatman" class="space-y-4" method="POST">
-    {% csrf_token %}
-   
-    {{ form.as_p }}
-    <input type="hidden" name="particepant_id" value="{{ edit_particepant.id }}">
-    <button type="submit" class="bg-rose-700 mt-7 text-white font-bold px-4 py-1 rounded-md">
-        Save Changes
-    </button>
-</form>
-    </div>
+<h1 class="text-center text-rose-800 font-bold text-2xl mb-6">Update Participant</h1>
+<div class="max-w-md mx-auto border p-6 shadow-lg rounded-lg mb-10">
+    <form id="updatman" action="#updatman" method="POST" class="space-y-4">
+        {% csrf_token %}
+        <label class="block font-semibold">Username</label>
+        <input 
+            type="text" 
+            name="username" 
+            value="{{ edit_particepant.username }}" 
+            placeholder="Username" 
+            class="w-full border px-3 py-2 rounded-md outline-none">
+        
+        <label class="block font-semibold">Email</label>
+        <input 
+            type="email" 
+            name="email" 
+            value="{{ edit_particepant.email }}" 
+            placeholder="Email" 
+            class="w-full border px-3 py-2 rounded-md outline-none">
+        
+        <input type="hidden" name="particepant_id" value="{{ edit_particepant.id }}">
+        <button type="submit" class="bg-rose-700 w-full text-white font-bold px-4 py-2 rounded-md mt-4">Save Changes</button>
+    </form>
+</div>
 {% endif %}
-
 
 {% endblock dashboard %}

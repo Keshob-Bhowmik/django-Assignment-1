@@ -3,7 +3,11 @@
 
 {% load static %}
 <div class="eb md:w-1/2 mt-8 mb-8 mx-auto border border-white shadow-lg p-4 shadow-gray-400">
-        <img class="shadow-2xl border border-green-950 w-full" src="{% static "images/Hero-1.webp" %}" alt="">
+        {% if event.asset %}
+            <img class="w-full h-[300px] shadow-2xl" src="{{ event.asset.url }}" />
+        {% else %}
+            <img class="w-full h-[300px] shadow-2xl" src="/media/events_asset/default.jpg" />
+        {% endif %}
         <h1>Name: {{event.name}}</h1>
         <h1>Description: {{event.description}}</h1>
         <div class="md:flex justify-between mt-2">
@@ -22,20 +26,31 @@
         </div>
         <h1 class="font-bold mt-2">Category: <span class="font-bold text-rose-900">{{event.category}}</span></h1>
         
-        {% if event.particepant.all %}
+        {% if event.participants.all %}
         
             <div class="mt-4">
             <h1 class="font-bold underline">All Particepants</h1>
             <ul class="mt-2">
-            {% for particepant in event.particepant.all %}
-                <li class="font-semibold">{{particepant.name}}</li>
+            {% for particepant in event.participants.all %}
+                <li class="font-semibold">{{particepant.username}}</li>
             {% endfor %}
             </ul>
         </div>
         {% else %}
         <h1 class="font-bold">No particepant</h1>
         {% endif %}
-        <a href="{% url "all"  %}?type=back" class="bg-rose-800 block px-2 py-1 text-white font-semibold text-center rounded-md mt-10">Back to Events</a>
+        {% if is_particepant %}
+            {% if source == 'view_rsvp_events' %}
+                <a href="{% url "view_rsvp_events"  %}?type=back" class="bg-rose-800 block px-2 py-1 text-white font-semibold text-center rounded-md mt-10">Back</a>
+            {% elif source == 'all' %}
+                <a href="{% url "all"  %}?type=back" class="bg-rose-800 block px-2 py-1 text-white font-semibold text-center rounded-md mt-10">Back</a>
+            {% elif source == 'home' %}
+                <a href="{% url "Home"  %}?type=back" class="bg-rose-800 block px-2 py-1 text-white font-semibold text-center rounded-md mt-10">Back</a>
+            {% endif %}
+        {% else %}
+            <a href="{% url "all"  %}?type=back" class="bg-rose-800 block px-2 py-1 text-white font-semibold text-center rounded-md mt-10">Back to Events</a>
+        {% endif %}
+        
         
       </div>
 

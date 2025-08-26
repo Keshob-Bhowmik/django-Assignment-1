@@ -19,7 +19,11 @@
     <div class="event-box grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
       {% for event in events %}
         <div class="eb border border-white shadow-lg p-4 shadow-gray-400">
-        <img class="shadow-2xl border border-green-950 w-full" src="{% static "images/Hero-1.webp" %}" alt="">
+        {% if event.asset %}
+            <img class="w-full h-[300px] shadow-2xl" src="{{ event.asset.url }}" />
+        {% else %}
+            <img class="w-full h-[300px] shadow-2xl" src="/media/events_asset/default.jpg" />
+        {% endif %}
         <h1>Name: {{event.name}}</h1>
         <div class="flex justify-between mt-2">
             <div class="flex items-center gap-1">
@@ -32,7 +36,14 @@
             </div>
         </div>
         
-        <a href="{% url "Details" event.id %}" class="bg-rose-800 block px-2 py-1 text-white font-semibold text-center rounded-md mt-10">Details</a>
+        
+
+        {% if is_particepant %}
+            <a href="{% url "rsvp_event" event.id %}" class="bg-rose-800 block px-2 py-1 text-white font-semibold text-center rounded-md mt-10">RSVP</a>
+        {% endif %}
+
+
+        <a href="{% url "Details" event.id %}?source=all" class="bg-rose-800 block px-2 py-1 text-white font-semibold text-center rounded-md mt-2">Details</a>
         
       </div>
       {% endfor %}

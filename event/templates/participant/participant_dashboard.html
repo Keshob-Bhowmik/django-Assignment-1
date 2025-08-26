@@ -1,0 +1,36 @@
+{% extends "dashboard/main.html" %}
+{% block title %}Participant Dashboard{% endblock title %}
+{% block main %}
+
+<div class="Dashboard w-full max-w-[1160px] mx-auto text-center px-4 mb-28">
+
+    <h1 class="text-center text-[30px] font-semibold mt-12 mb-6">Participant Dashboard</h1>
+    {% if messages %}
+        <div class="mb-4">
+            {% for message in messages %}
+                <div class="p-2 rounded-md 
+                            {% if message.tags == 'success' %}bg-green-200 text-green-800{% endif %}
+                            {% if message.tags == 'warning' %}bg-yellow-200 text-yellow-800{% endif %}">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+    <div class="flex justify-center">
+
+        <div class="categories-box">
+    <a href="{% url 'view_rsvp_events' %}">
+        <div class="cb w-full sm:w-[250px] rounded-md bg-rose-800 cursor-pointer hover:bg-rose-900 p-4 flex items-center justify-center">
+            <h1 class="text-white font-bold text-[20px] text-center break-words">
+                View RSVP's
+            </h1>
+        </div>
+    </a>
+</div>
+
+    </div>
+  </div>
+
+
+
+{% endblock main %}

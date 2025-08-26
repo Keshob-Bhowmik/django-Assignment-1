@@ -29,7 +29,15 @@
       <a class="md:mr-0 mr-1" href="{% url "Home" %}?type=home">Home</a>
       <a class="md:mr-0 mr-1" href="{% url "all" %}?type=all-event">Events</a>
       <a class="md:mr-0 mr-1" href="{% url "category" %}?type=Category">Categories</a>
-      <a href="{% url "dashboard" %}?type=dash">Dashboard</a>
+      {% if user.is_authenticated %}
+        {% if is_admin %}
+          <a href="{% url 'dashboard' %}?type=dash">Admin Dashboard</a>
+        {% elif is_organizer %}
+          <a href="{% url 'organizer_dashboard' %}?type=orgdash">Organizer Dashboard</a>
+        {% elif is_particepant %}
+          <a href="{% url 'participants_dashboard' %}?type=prtdash">Participant Dashboard</a>
+        {% endif %}
+      {% endif %}
     </div>
     <div class="text-center">
       {% if user.is_authenticated %}
@@ -82,7 +90,11 @@
       
       {% for event in events %}
         <div class="eb border border-white shadow-lg p-4 shadow-gray-400 mt-4">
-        <img class="shadow-2xl border border-green-950 w-full" src="{% static "images/Hero-1.webp" %}" alt="">
+        {% if event.asset %}
+            <img class="w-full h-[300px] shadow-2xl" src="{{ event.asset.url }}" />
+        {% else %}
+            <img class="w-full h-[300px] shadow-2xl" src="/media/events_asset/default.jpg" />
+        {% endif %}
         <h1>Name: {{event.name}}</h1>
         <div class="flex justify-between mt-2">
             <div class="flex items-center gap-1">
@@ -94,8 +106,10 @@
                 <h1 class=" font-semibold">{{event.time}}</h1>
             </div>
         </div>
-        
-        <a href="{% url "Details" event.id %}" class="bg-rose-800 block px-2 py-1 text-white font-semibold text-center rounded-md mt-10">Details</a>
+        {% if is_particepant %}
+            <a href="{% url "rsvp_event" event.id %}" class="bg-rose-800 block px-2 py-1 text-white font-semibold text-center rounded-md mt-10">RSVP</a>
+        {% endif %}
+        <a href="{% url "Details" event.id %}?source=home" class="bg-rose-800 block px-2 py-1 text-white font-semibold text-center rounded-md mt-2">Details</a>
         
       </div>
       {% endfor %}

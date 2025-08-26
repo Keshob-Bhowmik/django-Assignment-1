@@ -60,3 +60,4 @@ class CustomRegistrationForm(StyledForMixin,forms.ModelForm):
 class LoginForm(StyledForMixin,AuthenticationForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+

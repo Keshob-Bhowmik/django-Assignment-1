@@ -1,57 +1,44 @@
 {% extends "dashboard/main.html" %}
-{% block title %}Dashboard{% endblock title %}
+{% block title %}Organizer Dashboard{% endblock title %}
 {% block main %}
 <div>
-  
 </div>
 <div class="Dashboard w-full max-w-[1160px] mx-auto px-4 mb-28">
 
-    <h1 class="text-center text-[30px] font-semibold mt-12 mb-6">Dashboard</h1>
+    <h1 class="text-center text-[30px] font-semibold mt-12 mb-6">Organizer Dashboard</h1>
     <div class="flex justify-center">
       <div class="categories-box grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-        <a href="{% url "create-event" %}?type=add-event#addevent">
+        
+        
+        
+        <a href="{% url "organizer_create_event" %}?type=org_add-event#orgaddevent">
           <div class="cb w-full sm:w-[250px] rounded-md h-[80px] flex justify-center items-center bg-rose-800 cursor-pointer hover:bg-rose-900">
           <h1 class="text-white font-bold text-[20px]">Add Event</h1>
         </div>
         </a>
-        <a  href="{% url "remove_event" %}#show">
+        <a  href="{% url "organizer_remove_event" %}#orgshow">
           <div  class="cb w-full sm:w-[250px] rounded-md h-[80px] flex justify-center items-center bg-rose-800 cursor-pointer hover:bg-rose-900">
           <h1 class="text-white font-bold text-[20px]">Remove Event</h1>
         </div>
         </a>
-        <a href="{% url "update_event" %}#updateevent">
+        <a href="{% url "organizer_update_event" %}#orgupdateevent">
           <div class="cb w-full sm:w-[250px] rounded-md h-[80px] flex justify-center items-center bg-rose-800 cursor-pointer hover:bg-rose-900">
           <h1 class="text-white font-bold text-[20px]">Update Event</h1>
         </div>
         </a>
-        <a href="{% url "addparticepant" %}#add-particepant">
-          <div class="cb w-full sm:w-[250px] rounded-md h-[80px] flex justify-center items-center bg-rose-800 cursor-pointer hover:bg-rose-900">
-          <h1 class="text-white font-bold text-[20px]">Add Participant</h1>
-        </div>
-        </a>
-        <a href="{% url "removeparticepant" %}#removeman">
-          <div class="cb w-full sm:w-[250px] rounded-md h-[80px] flex justify-center items-center bg-rose-800 cursor-pointer hover:bg-rose-900">
-          <h1 class="text-white font-bold text-[20px]">Remove Participant</h1>
-        </div>
-        </a>
-        <a href="{% url "updateparticepant" %}#updatman">
-          <div class="cb w-full sm:w-[250px] rounded-md h-[80px] flex justify-center items-center bg-rose-800 cursor-pointer hover:bg-rose-900">
-          <h1 class="text-white font-bold text-[20px]">Update Participant</h1>
-        </div>
-        </a>
         
-        <a href="{% url "create-category" %}#addcat">
+        <a href="{% url "organizer_create_category" %}#orgaddcat">
           <div class="cb w-full sm:w-[250px] rounded-md h-[80px] flex justify-center items-center bg-rose-800 cursor-pointer hover:bg-rose-900">
           <h1 class="text-white font-bold text-[20px]">Add Category</h1>
         </div>
         </a>
        
-        <a href="{% url "removecategory" %}#removecat">
+        <a href="{% url "organizer_remove_category" %}#orgremovecat">
           <div class="cb w-full sm:w-[250px] rounded-md h-[80px] flex justify-center items-center bg-rose-800 cursor-pointer hover:bg-rose-900">
           <h1 class="text-white font-bold text-[20px]">Remove Category</h1>
         </div>
         </a>
-         <a href="{% url "updatecategory" %}#updatcat">
+         <a href="{% url "oranizer_update_category" %}#orgorgupdatcat">
           <div class="cb w-full sm:w-[250px] rounded-md h-[80px] flex justify-center items-center bg-rose-800 cursor-pointer hover:bg-rose-900">
           <h1 class="text-white font-bold text-[20px]">Update Category</h1>
         </div>
@@ -60,8 +47,8 @@
     </div>
   </div>
 
-  {% block dashboard %}
+  {% block org_dashboard %}
   
-  {% endblock dashboard %}
+  {% endblock org_dashboard %}
 
 {% endblock main %}
