@@ -3,7 +3,7 @@ from event.models import Event, Category
 from django.contrib.auth.models import User, Group, Permission
 
 class StyledForMixin:
-    default_classes = "w-full border-2"
+    default_classes = 'w-full border-2 px-3 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-rose-700'
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -25,7 +25,7 @@ class StyledForMixin:
                 })
             elif isinstance(field.widget, forms.CheckboxSelectMultiple):
                 field.widget.attrs.update({
-                    'class': "border-blue-500 border-2 bg-blue-100",
+                    'class': "",
                     'placeholder': f"enter {label_text}"
                 })
             elif isinstance(field.widget, forms.SelectDateWidget):
@@ -35,19 +35,19 @@ class StyledForMixin:
                 })
             elif isinstance(field.widget, forms.EmailInput):
                 field.widget.attrs.update({
-                    'class': "border-2",
+                    'class': self.default_classes,
                     'placeholder': f"enter {label_text}"
                 })
             elif isinstance(field.widget, forms.Select):
                 field.widget.attrs.update({
-                    'class': "border-2 w-full",
+                    'class': self.default_classes,
                 })
             elif isinstance(field.widget, forms.PasswordInput):
                 placeholder_text = "Enter your password"
                 if field_name.lower() == "confirm_password":
                     placeholder_text = "Retype your password"
                 field.widget.attrs.update({
-                    'class': "border-2 w-full",
+                    'class': self.default_classes,
                     'placeholder': placeholder_text
                 })
 
@@ -74,6 +74,13 @@ class EventModelForm(forms.ModelForm):
             }),
             'category' : forms.Select(attrs={
                 'class' : 'border border-gray-300 rounded-md px-3 py-2 w-full focus:outline-none focus:ring-2 focus:ring-rose-600',
+            }),
+            'asset': forms.FileInput(attrs={
+                'class': 'border border-gray-300 rounded-md px-3 py-2 w-full focus:outline-none focus:ring-2 focus:ring-rose-600',
+                'accept': 'image/*',
+            }),
+            'location' : forms.TextInput(attrs={
+                'class' : 'border border-gray-300 rounded-md px-3 py-2 w-full text-sm focus:outline-none focus:ring-2 focus:ring-rose-600',
             }),
         }
 

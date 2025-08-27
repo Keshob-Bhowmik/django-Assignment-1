@@ -4,14 +4,15 @@
         {% if messages %}
             <ul>
                 {% for message in messages %}
-                    <li class="bg-green-500 text-white font-semibold">{{message}}</li>
+                    <li class="bg-green-500 text-white text-center font-semibold">{{message}}</li>
                 {% endfor %}
             </ul>
         {% endif %}
         <form action="" method = 'POST'>
             {% csrf_token %}
-            <button type='submit' id="selectAllBtn" class="bg-rose-800 px-2 py-1 text-white font-semibold mt-2 rounded-md">Select All</button>
+            
             {{form}}
+            <button type='submit' id="selectAllBtn" class="bg-rose-800 px-2 py-1 text-white font-semibold mt-2 rounded-md">Select All</button>
             <button type='submit' class="bg-rose-800 px-2 py-1 text-white font-semibold mt-2 rounded-md">Create Group</button>
         </form>
     </div>

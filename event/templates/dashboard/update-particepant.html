@@ -37,11 +37,6 @@
 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 px-4 md:px-10 mb-12">
     {% for particepant in particepants %}
     <div class="border border-gray-200 shadow-lg rounded-lg p-4 flex flex-col items-center">
-        {% if event.asset %}
-            <img class="w-full h-[300px] shadow-2xl" src="{{ event.asset.url }}" />
-        {% else %}
-            <img class="w-full h-[300px] shadow-2xl" src="/media/events_asset/default.jpg" />
-        {% endif %}
         <h2 class="font-semibold text-lg">Username: {{ particepant.username }}</h2>
         <p class="text-gray-700">Email: {{ particepant.email }}</p>
         <form method="GET" action="{% url 'updateparticepant' %}#updatman" class="w-full mt-4">

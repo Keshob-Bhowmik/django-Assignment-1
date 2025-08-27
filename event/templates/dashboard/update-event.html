@@ -68,7 +68,7 @@
 {% if edit_id_ache == "yes" %}
 <h1 id="updateevent" class="text-center text-rose-800 font-bold text-[25px] mb-3">Update Event</h1>
     <div class="border md:w-[500px] mx-auto p-4 mb-4 shadow-lg">
-        <form id="updateevent"  action="#updateevent" class="space-y-4" method="POST">
+        <form id="updateevent"  action="#updateevent" class="space-y-4" method="POST" enctype="multipart/form-data">
     {% csrf_token %}
     
     {{ form.as_p }}

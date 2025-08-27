@@ -37,14 +37,10 @@
 {% endif %}
 
 {% if categories %}
-<div id="orgupdatcat" class="event-box grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 px-10">
+<div id="orgupdatcat" class="event-box grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 px-10 mb-6">
     {% for category in categories %}
     <div class="eb border border-white shadow-lg p-4 shadow-gray-400">
-        {% if event.asset %}
-            <img class="w-full h-[300px] shadow-2xl" src="{{ event.asset.url }}" />
-        {% else %}
-            <img class="w-full h-[300px] shadow-2xl" src="/media/events_asset/default.jpg" />
-        {% endif %}
+       <h1>Name: {{category.name}}</h1>
 <form method="GET" action="{% url 'oranizer_update_category' %}#orgupdatcat">
     <input type="hidden" name="edit_id" value="{{ category.id }}">
     <button type="submit" class="bg-rose-800 w-full text-white font-semibold px-2 py-1 rounded-md mt-10">Edit</button>

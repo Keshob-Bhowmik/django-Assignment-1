@@ -20,7 +20,9 @@ class CustomRegistrationForm(StyledForMixin,forms.ModelForm):
     class Meta:
         model = User
         fields = ['username', 'first_name', 'last_name', 'password1', 'confirm_password', 'email']
-    
+
+
+
     def clean_password1(self):
         errors = []
         password1 = self.cleaned_data.get('password1')
@@ -57,7 +59,15 @@ class CustomRegistrationForm(StyledForMixin,forms.ModelForm):
 
     
 
-class LoginForm(StyledForMixin,AuthenticationForm):
+class LoginForm(AuthenticationForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-
+       
+        self.fields['username'].widget.attrs.update({
+            'class': 'w-full border-2 px-3 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-rose-700',
+            'placeholder': 'enter username'
+        })
+        self.fields['password'].widget.attrs.update({
+            'class': 'w-full border-2 px-3 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-rose-700',
+            'placeholder': 'Enter your password'
+        })
