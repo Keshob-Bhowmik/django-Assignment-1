@@ -173,7 +173,8 @@ EMAIL_PORT = config('EMAIL_PORT')
 EMAIL_HOST_USER = config('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = config("EMAIL_HOST_PASSWORD")
 
-FRONT_END_URL = 'http://127.0.0.1:8000'
+FRONT_END_URL = 'https://django-assignment-1-fa97.onrender.com'
 
+#'http://127.0.0.1:8000'
 
 LOGIN_URL = 'sign_in'

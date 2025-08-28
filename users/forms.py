@@ -56,6 +56,8 @@ class CustomRegistrationForm(StyledForMixin,forms.ModelForm):
         if password1 != confirm_password:
             raise forms.ValidationError("password do not match")
         return cleaned_data
+    
+    
 
     
 
